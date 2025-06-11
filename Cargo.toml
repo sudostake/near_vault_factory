@@ -1,6 +1,6 @@
 [package]
 name = "near_vault_factory"
-description = "cargo-near-new-project-description"
+description = "NEAR Vault Factory contract"
 version = "0.1.0"
 edition = "2021"
 # TODO: Fill out the repository field to help NEAR ecosystem tools to discover your project.

@@ -1,6 +1,6 @@
-# near_vault_factory
+# NEAR Vault Factory
 
-cargo-near-new-project-description
+A factory contract for creating and managing Vault contracts on NEAR Protocol.
 
 ## How to Build Locally?
 
