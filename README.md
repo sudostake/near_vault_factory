@@ -12,6 +12,13 @@ cargo near build
 
 ## How to Test Locally?
 
+Install Docker, [`cargo-near`](https://github.com/near/cargo-near), and set required kernel parameters:
+```bash
+bash scripts/set_kernel_params.sh
+cargo install cargo-near --locked
+```
+
+Run all tests (unit + integration):
 ```bash
 cargo test
 ```

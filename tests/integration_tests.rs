@@ -1,12 +1,12 @@
 // Integration tests for the vault factory contract (testing `new` method) using near-workspaces.
 use near_sdk::json_types::U128;
 use near_sdk::CryptoHash;
-use near_workspaces::sandbox;
 
+// To run integration tests: `cargo test -- --ignored --nocapture`
 #[tokio::test]
 async fn integration_new_initialization() -> Result<(), Box<dyn std::error::Error>> {
     // Launch sandbox and compile + deploy the contract on the fly
-    let worker = sandbox().await?;
+    let worker = near_workspaces::sandbox().await?;
     let wasm = near_workspaces::compile_project("./").await?;
     let contract = worker.dev_deploy(&wasm).await?;
 
@@ -17,8 +17,8 @@ async fn integration_new_initialization() -> Result<(), Box<dyn std::error::Erro
 
     // Initialize the contract
     let outcome = owner
-        .call(&contract.id(), "new")
-        .args_json((owner.id(), fee, code_hash.clone()))
+        .call(contract.id(), "new")
+        .args_json((owner.id(), fee, code_hash))
         .transact()
         .await?;
     assert!(outcome.is_success());
