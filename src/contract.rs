@@ -1,6 +1,6 @@
 // Find all our documentation at https://docs.near.org
 use near_sdk::json_types::U128;
-use near_sdk::{near, AccountId, CryptoHash};
+use near_sdk::{log, near, require, AccountId, CryptoHash};
 
 // Define the contract structure
 #[near(contract_state)]
@@ -42,16 +42,22 @@ impl Contract {
 #[allow(dead_code, unused_variables)]
 #[near]
 impl Contract {
-    /// Initializes the contract.
+    /// Initializes the contract. Only callable by the contract's account.
     #[init]
+    #[private]
     pub fn new(
         owner_id: AccountId,
         vault_minting_fee: U128,
         initial_vault_code_hash: CryptoHash,
     ) -> Self {
-        assert!(
+        require!(
             !near_sdk::env::state_exists(),
             "Contract is already initialized"
+        );
+        log!(
+            "Near Vault Factory Initialized. Owner {}, vault_minting_fee {}",
+            owner_id,
+            vault_minting_fee.0
         );
         Self {
             owner_id,

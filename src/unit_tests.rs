@@ -5,14 +5,23 @@ mod tests {
     use near_sdk::json_types::U128;
     use near_sdk::test_utils::{accounts, VMContextBuilder};
     use near_sdk::testing_env;
+    use near_sdk::NearToken;
     use near_sdk::AccountId;
     use near_sdk::CryptoHash;
 
+    // Auxiliar fn: create a mock context
+    fn set_context(predecessor: AccountId, amount: NearToken) {
+        let mut builder = VMContextBuilder::new();
+        builder.predecessor_account_id(predecessor);
+        builder.attached_deposit(amount);
+
+        testing_env!(builder.build());
+    }
+
     #[test]
     fn new_initializes_fields() {
-        let builder = VMContextBuilder::new();
-        testing_env!(builder.build());
         let owner: AccountId = accounts(0);
+        set_context(owner.clone(), NearToken::from_near(0));
         let fee = U128(123);
         let code_hash = CryptoHash::default();
         let contract = Contract::new(owner.clone(), fee, code_hash);
@@ -25,9 +34,8 @@ mod tests {
     #[test]
     #[should_panic(expected = "Contract is already initialized")]
     fn new_reinitialization_panics() {
-        let builder = VMContextBuilder::new();
-        testing_env!(builder.build());
         let owner: AccountId = accounts(1);
+        set_context(owner.clone(), NearToken::from_near(0));
         let fee = U128(456);
         let code_hash = CryptoHash::default();
         let contract1 = Contract::new(owner.clone(), fee, code_hash);
