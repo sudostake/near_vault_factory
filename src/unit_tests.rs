@@ -5,9 +5,9 @@ mod tests {
     use near_sdk::json_types::U128;
     use near_sdk::test_utils::{accounts, VMContextBuilder};
     use near_sdk::testing_env;
-    use near_sdk::NearToken;
     use near_sdk::AccountId;
     use near_sdk::CryptoHash;
+    use near_sdk::NearToken;
 
     // Auxiliar fn: create a mock context
     fn set_context(predecessor: AccountId, amount: NearToken) {

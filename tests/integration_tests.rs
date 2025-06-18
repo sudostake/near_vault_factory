@@ -1,8 +1,8 @@
 // Integration tests for the vault factory contract (testing `new` method) using near-workspaces.
 use near_sdk::json_types::U128;
 use near_sdk::CryptoHash;
-use near_workspaces::{Contract, ContractState, Worker};
 use near_workspaces::network::Sandbox;
+use near_workspaces::{Contract, ContractState, Worker};
 
 // Utility to deploy the vault contract as a top-level account and return its code hash.
 async fn deploy_vault_as_global_contract(
